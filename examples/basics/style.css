@@ -1,0 +1,243 @@
+* {
+	/* reset browser default styles */
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.root {
+	padding: 20px;
+
+	min-width: 600px;
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+.attention {
+	color: red;
+}
+
+.root > p {
+	margin-bottom: 10px;
+}
+
+.example-container {
+	border: 1px solid #c1c1c1;
+	padding: 10px;
+
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
+.example-container > p {
+	margin-bottom: 10px;
+}
+
+.example-result-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+
+	margin: -5px; /* extra margin from > .block */
+}
+.example-result-container > .block {
+	margin: 5px;
+}
+.example-result-container > .code-block {
+	flex-shrink: 0;
+}
+.example-result-container > .code-block.allow-shrink {
+	flex-shrink: 1;
+}
+.example-result-container > .code-block.all-width {
+	width: calc(100% - 10px); /* now we have problems with our (negative) margins */
+}
+
+.example-result {
+	border: 1px solid black;
+	padding: 10px;
+}
+
+.code-block {
+	white-space: pre-wrap;
+	word-break: break-all;
+	word-wrap: break-word;
+
+	font-family: monospace;
+
+	background: #f1f1f1;
+
+	padding: 1em;
+}
+
+/* examples css */
+.example-inline-div div {
+	display: inline;
+}
+
+/***/
+.example-inline-height span {
+    background: #f1f1f1;
+}
+
+.example-inline-height span.increased-font-size {
+	font-size: 150%;
+}
+.example-inline-height span.bigger {
+	height: 28px;
+}
+.example-inline-height span.really-bigger {
+	display: inline-block;
+	width: 100px;
+	height: 28px;
+}
+
+/***/
+.example-inline-wrap-container .color-a {
+	background: #b8b8ff;
+}
+.example-inline-wrap-container .color-b {
+	background: #ffb8b8;
+}
+
+.example-inline-wrap {
+	max-width: 200px;
+}
+.example-inline-wrap .a {
+	background: #b8b8ff;
+}
+.example-inline-wrap .b {
+	display: inline-block;
+	background: #ffb8b8;
+}
+
+/***/
+.example-box-sizing div {
+	margin: 10px;
+	padding: 10px;
+	border: 2px solid;
+	width: 30px;
+	height: 30px;
+}
+.example-box-sizing div.content-box {
+	box-sizing: content-box;
+	border-color: red;
+	background: #ffb8b8;
+}
+.example-box-sizing div.border-box {
+	box-sizing: border-box;
+	border-color: blue;
+	background: #b8b8ff;
+}
+
+/***/
+.example-position-container .color-c {
+	background: #b8ffcc;
+}
+.example-position-container .color-d {
+	background: #ffd0b8;
+}
+
+.example-position {
+	flex-shrink: 0;
+
+	width: 100px;
+	height: 100px;
+	position: relative;
+}
+.example-position div {
+	width: 20px;
+	height: 20px;
+}
+.example-position .a {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #ffb8b8;
+}
+.example-position .b {
+	position: absolute;
+	bottom: 40px;
+	right: 20px;
+	background: #b8b8ff;
+}
+.example-position .c {
+	position: relative;
+	top: 15px;
+	left: 35px;
+	background: #b8ffcc;
+}
+.example-position .d {
+	background: #ffd0b8;
+}
+
+/***/
+.example-float {
+	max-width: 150px;
+}
+
+.example-float .float-left {
+	float: left;
+
+	width: 20px;
+	height: 20px;
+	background: #b8b8ff;
+}
+
+.example-float .float-right {
+	float: right;
+
+	width: 60px;
+	height: 50px;
+	background: #ffb8b8;
+}
+
+/***/
+.example-table {
+	max-width: 200px;
+}
+.example-table table {
+	width: 100%;
+}
+
+.example-table table.auto {
+	table-layout: auto;
+}
+
+.example-table table.fixed {
+	table-layout: fixed;
+}
+.example-table table.fixed td {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/***/
+.example-table-magic {
+	width: 200px;
+}
+.example-table-magic table {
+	table-layout: auto;
+	width: 100%;
+}
+.example-table-magic table td.shrink {
+	width: 1px;
+	white-space: nowrap;
+}
+.example-table-magic table .td-container {
+	position: relative;
+}
+.example-table-magic table .td-container:after {
+	content: ' ';
+	display: inline-block;
+	width: 0;
+	height: 0;
+}
+.example-table-magic table .td-container > .content {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

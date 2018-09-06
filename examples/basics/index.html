@@ -1,0 +1,447 @@
+<!doctype html>
+<html>
+<head>
+	<meta chartset="utf-8">
+	<title>Basics</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div class="root">
+	<p>В каждом прямоугольнике рассматривается по примеру, где внутри первого показан итоговый результат, второго — <b>HTML</b>, третьего (если он есть) — <b>CSS</b>.</p>
+	<p>В <b>Google Chrome</b> вы можете нажать <b>Ctrl+Shift+C</b> и кликнуть по какому-либо элементу, чтобы посмотреть его CSS-свойства/размеры.</p>
+
+	<div class="example-container">
+		<p>Отличие блоков от inline-элементов. Мы добавили два блока, затем три span'а, затем ещё один блок. Видно, как <b>div'ы</b> занимают всю ширину, а <b>span'ы</b> идут друг за другом как текст.</p>
+
+		<div class="example-result-container">
+			<div class="block example-result">
+				<div>div1</div>
+				<div>div2</div>
+				<span>span1</span>
+				<span>span2</span>
+				<span>span3</span>
+				<div>div3</div>
+			</div>
+
+			<pre class="block code-block">&lt;div&gt;div1&lt;/div&gt;
+&lt;div&gt;div2&lt;/div&gt;
+&lt;span&gt;span1&lt;/span&gt;
+&lt;span&gt;span2&lt;/span&gt;
+&lt;span&gt;span3&lt;/span&gt;
+&lt;div&gt;div3&lt;/div&gt;</pre>
+		</div>
+	</div>
+
+	<div class="example-container">
+		<p>CSS-свойство <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display">display</a> отвечает за то, как должен вести себя элемент. Мы можем, например, сделать <b>div'ы</b> тоже инлайновыми. Или <b>span'ы</b> блоками, если нам это зачем-то нужно.</p>
+
+		<div class="example-result-container">
+			<div class="block example-result example-inline-div">
+				<div>div1</div>
+				<div>div2</div>
+				<span>span1</span>
+				<span>span2</span>
+				<span>span3</span>
+				<div>div3</div>
+			</div>
+
+			<pre class="block code-block">&lt;div class="example-inline-div"&gt;
+  &lt;div&gt;div1&lt;/div&gt;
+  &lt;div&gt;div2&lt;/div&gt;
+  &lt;span&gt;span1&lt;/span&gt;
+  &lt;span&gt;span2&lt;/span&gt;
+  &lt;span&gt;span3&lt;/span&gt;
+  &lt;div&gt;div3&lt;/div&gt;
+&lt;/div&gt;</pre>
+
+			<pre class="block code-block">.example-inline-div div {
+    display: inline;
+}</pre>
+		</div>
+	</div>
+
+	<div class="example-container">
+		<p>Здесь мы попытались применить <b>width и height</b> на элемент <b>.bigger</b>, но ничего не вышло (иначе он бы был сейчас 1000x1000 и занимал бы половину экрана).</p>
+		<p>Inline-элементам нельзя задавать размеры. Но если всё-таки нужно, есть <b>inline-block</b>, которые ведут себя как <b>inline</b>, но больше всё-таки блоки, что мы рассмотрим в следующем примере.</p>
+
+		<div class="example-result-container">
+			<div class="block example-result example-inline-height">
+				<span class="increased-font-size">span1</span>
+				<span class="bigger">span2</span>
+				<span class="really-bigger">span3</span>
+			</div>
+
+			<pre class="block code-block">&lt;div class="example-inline-height"&gt;
+  &lt;span class="increased-font-size"&gt;span1&lt;/span&gt;
+  &lt;span class="bigger"&gt;span2&lt;/span&gt;
+  &lt;span class="really-bigger-height"&gt;span3&lt;/span&gt;
+&lt;/div&gt;</pre>
+
+			<pre class="block code-block">.example-inline-height span {
+  background: #f1f1f1;
+}
+
+.example-inline-height span.increased-font-size {
+  font-size: 150%;
+}
+
+.example-inline-height span.bigger-height {
+  width: 1000px;
+  height: 1000px;
+}
+
+.example-inline-height span.really-bigger {
+  display: inline-block;
+  width: 100px;
+  height: 28px;
+}</pre>
+		</div>
+	</div>
+
+	<div class="example-container example-inline-wrap-container">
+		<p>Мы уменьшили максимальную ширину нашего контейнера для результата, чтобы буквы начали переноситься по строкам. И покрасили обычный <span class="color-a">inline</span> в синеватый, а <span class="color-b">inline-block</span> в красноватый.</p>
+		<p>Как видно, между ними есть разница. Во-первых, возможно видны разрывы в закраске <span class="color-a">A-варианта</span>. Во-вторых правый нижний угол не закрашен. В-третьих <span class="color-b">B-вариант</span> почему-то совершил перенос на другую строку.</p>
+		<p>Если вы попробуете уменьшить количество букв <b>b</b>, то как только <b>inline-block</b> элементу хватит места, чтобы влезть на остаток строки за <b>a</b> — он это сделает.</p>
+		<p>Так происходит из-за того, что только текст (содержащийся в inline-элементах) умеет переноситься с одной строки на другую. Когда мы сделали второй <b>span</b> inline-блоком, мы ему чётко сказали, что ты теперь блок. Он не будет занимать всю ширину, постарается сойти среди inline-элементов за своего, но если упрётся в конец строки — перенесётся целиком. Ибо блок не может быть разделён на несколько строк.</p>
+		<p>Потому что если у нас на одной строке несколько букв в конце и потом на другой ещё несколько, у нас получается два не связанных между собой прямоугольника, и тогда что такое размер у такого элемента?</p>
+
+		<div class="example-result-container">
+			<div class="block example-result example-inline-wrap">
+				<span class="a">a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a</span>
+				<span class="b">b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b</span>
+			</div>
+
+			<pre class="block code-block allow-shrink">&lt;div class="example-inline-wrap"&gt;
+  &lt;span class="a"&gt;a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a&lt;/span&gt;
+  &lt;span class="b"&gt;b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b&lt;/span&gt;
+&lt;/div&gt;</pre>
+
+			<pre class="block code-block">.example-inline-wrap {
+  max-width: 200px;
+}
+
+.example-inline-wrap .a {
+  background: #b8b8ff;
+}
+
+.example-inline-wrap .b {
+  display: inline-block;
+  background: #ffb8b8;
+}</pre>
+		</div>
+	</div>
+
+	<div class="example-container">
+		<p>Если, как писалось в самом начале, открыть <b>DevTools</b> и включить инспекцию элементов, то эти два квадрата будут выглядеть следующим образом:</p>
+		<p><img src="images/box-sizing-content-box-hover.png"> <img src="images/box-sizing-border-box-hover.png"></p>
+		<p>Единственное различие у них — в цветах и свойстве <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing">box-sizing</a>.</p>
+		<p>При <b>content-box</b> свойства <b>width и height</b> задают размер контента, а <b>padding</b>, <b>border</b> приплюсовываются поверх, а при <b>border-box</b> задаётся размер вместе с отступами и границей. Поэтому во втором случае размер контента получился <b>30 - 20 - 4 = 6px</b> (дважды по 10px отступа, дважды по 2px границы).</p>
+		<p>Так же <span class="attention">обратите внимание</span>, что у обоих элементов есть <b>margin</b> по <b>10px</b>, однако между двумя этими элементами расстояние не <b>20px</b>.</p>
+		<p>Поля умеют схлопываться и за этим нужно следить, либо прочитать правила в спецификации CSS, по которым они схлопываются.</p>
+
+		<div class="example-result-container">
+			<div class="block example-result example-box-sizing">
+				<div class="content-box"></div>
+				<div class="border-box"></div>
+			</div>
+
+			<pre class="block code-block">&lt;div class="example-box-sizing"&gt;
+  &lt;div class="content-box"&gt;&lt;/div&gt;
+  &lt;div class="border-box"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+
+			<pre class="block code-block">.example-box-sizing div {
+  margin: 10px;
+  padding: 10px;
+  border: 2px solid;
+  width: 30px;
+  height: 30px;
+}
+
+.example-box-sizing div.content-box {
+  box-sizing: content-box;
+  border-color: red;
+  background: #ffb8b8;
+}
+
+.example-box-sizing div.border-box {
+  box-sizing: border-box;
+  border-color: blue;
+  background: #b8b8ff;
+}</pre>
+		</div>
+	</div>
+
+	<div class="example-container example-position-container">
+		<p>Существует свойство <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">position</a>. <b>position: absolute</b> позволяет выставлять элементы на конкретное место внутри блока с <b>position: relative</b> (или страницы, если в родителях такого блока нет).</p>
+		<p>Там по себе <b>position: relative</b> позволяет двигать блок на относительное количество пикселей.</p>
+		<p><span class="attention">Обратите внимание</span> на блоки <span class="color-c">C</span> и <span class="color-d">D</span>.</p>
+		<p>Они довольно неплохо описывают, что на самом деле происходит. Первые два блока у нас <b>position: absolute</b> и они разлетелись по углам. <b>position: absolute</b> «выдёргивает» блоки и они перестают как-либо взаимодействовать своими размерами на другие.</p>
+		<p>Блок <span class="color-c">C</span> мы сместили <b>position: relative</b> в сторону. А блок <span class="color-d">D</span> у нас самый обычный.</p>
+		<p>Смотреть нужно на место, где он отображается. Если убрать с блока <span class="color-c">C</span> позиционирование, то можно увидеть, что блок <span class="color-d">D</span> у нас отображается после него. Т.е. позиционирование показывает элемент в другом месте, но... его старое место занято и именно оно влияет на положение других элементов.</p>
+		<p>Кроме того, важно, что при абсолютном позиционировании ноль находится внутри границы, хоть и размер блока считается вместе с границей.</p>
+
+		<div class="example-result-container">
+			<div class="block example-result example-position">
+				<div class="a"></div>
+				<div class="b"></div>
+				<div class="c"></div>
+				<div class="d"></div>
+			</div>
+
+			<pre class="block code-block">&lt;div class="example-position"&gt;
+  &lt;div class="a"&gt;&lt;/div&gt;
+  &lt;div class="b"&gt;&lt;/div&gt;
+  &lt;div class="c"&gt;&lt;/div&gt;
+  &lt;div class="d"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+
+			<pre class="block code-block">.example-position {
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid black;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+.example-position div {
+  width: 20px;
+  height: 20px;
+}
+.example-position .a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #ffb8b8;
+}
+.example-position .b {
+  position: absolute;
+  bottom: 40px;
+  right: 20px;
+  background: #b8b8ff;
+}
+.example-position .c {
+  position: relative;
+  top: 15px;
+  left: 35px;
+  background: #b8ffcc;
+}
+.example-position .d {
+	background: #ffd0b8;
+}</pre>
+		</div>
+	</div>
+
+	<div class="example-container">
+		<p>Обтекания текстом блоков. CSS-свойство <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/float">float</a>.</p>
+		<p>Во времена, когда использовать <b>flexbox</b> практически было нельзя, данное свойство было полезно тем, что при помощи него есть возможность одновременно показать блок (либо несколько) и слева и справа (либо только с одной стороны), а посередине оставить всё оставшееся место.</p>
+		<p>Т.е. к примеру, в этом же примере мы можем вместо кучи текста <b>a a a a a</b> сделать блок, у которого паддинг слева будет <b>20px</b>, паддинг справа <b>60px</b>, сделать его <b>position: absolute</b>, родительский <b>relative</b>, блоки <b>float-left и float-right</b> сделать <b>100%</b> по высоте и получить в итоге трёхколоночный макет, где крайние колонки занимают фиксированное пространство, а центральная всё оставшееся.</p>
+		<p>Но с массовой поддержкой <b>flexbox</b>, о котором будет далее, данные схемы использовать обычно не приходится и <b>float</b> остаётся для... обтекания текстом, например, картинок в статьях.</p>
+		<p>Так же существует обратное свойство <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/clear">clear</a>, которое позволяет попросить не обтекать текстом заданный блок с той либо иной стороны.</p>
+
+		<div class="example-result-container">
+			<div class="block example-result example-float">
+				<div class="float-left"></div>
+				<div class="float-right"></div>
+				<span>
+					a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+					a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+				</span>
+			</div>
+
+			<pre class="block code-block allow-shrink">&lt;div class="example-float"&gt;
+  &lt;div class="float-left"&gt;&lt;/div&gt;
+  &lt;div class="float-right"&gt;&lt;/div&gt;
+  &lt;span&gt;
+    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+  &lt;/span&gt;
+&lt;/div&gt;</pre>
+
+			<pre class="block code-block">.example-float {
+  max-width: 150px;
+}
+
+.example-float .float-left {
+  float: left;
+
+  width: 20px;
+  height: 20px;
+  background: #b8b8ff;
+}
+
+.example-float .float-right {
+  float: right;
+
+  width: 60px;
+  height: 50px;
+  background: #ffb8b8;
+}</pre>
+		</div>
+	</div>
+
+	<div class="example-container">
+		<p>Здесь показаны специально косячные таблицы.</p>
+		<p>У таблицы есть два значения для <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/table-layout">table-layout</a>: <b>auto</b> и <b>fixed</b>.</p>
+		<p><b>auto</b> — вообще отличный режим, он выделяет столбцам столько места, сколько максимум есть в какой-либо из строк этой таблицы. Но есть проблема с тем, что ширину таблицы ничем нельзя ограничить в этом режиме. И нельзя, например, колонке указать <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/max-width">max-width</a>, ибо:</p>
+		<p><i>«In CSS 2.1, the effect of 'min-width' and 'max-width' on tables, inline tables, table cells, table columns, and column groups is undefined.»</i> — <a href="https://www.w3.org/TR/CSS2/visudet.html#min-max-widths">CSS2.1</a></p>
+		<p><b>fixed</b> — режим не такой хороший, как auto, но если говоришь таблице «будь 100% по ширине контейнера», то она за него не вылезет.</p>
+		<p>Не такой хороший тем, что требуется вручную указывать конкретные размеры каждой колонки, иначе они все будут равны между собой, либо посчитаются как браузеру нравится, либо в спецификации есть какой-то алгоритм по поводу этого.</p>
+		<p>С указанием конкретных размеров проблема в том, что мы не всегда знаем, сколько нам нужно. Например, в данном примере первая и третья колонки имеют немного контента, а средняя много. И если мы хотим, чтобы первая и третья занимали столько, сколько у них контента (ибо, например, там дата и кнопка, которые гарантированно будут короткими), а средняя всё оставшееся место, то конкретными размерами мы никак не угадаем, всегда будет либо больше, либо меньше.</p>
+
+		<div class="example-result-container">
+			<div class="block example-result example-table">
+				<table class="auto"><tbody>
+					<tr>
+						<td>AA</td>
+						<td>BBBBBBBBBBBBBBBBBBBBBBB</td>
+						<td>C</td>
+					</tr>
+					<tr>
+						<td>BBBB</td>
+						<td>AAA</td>
+						<td>C</td>
+					</tr>
+				</tbody></table>
+
+				<table class="fixed"><tbody>
+					<tr>
+						<td>AA</td>
+						<td>BBBBBBBBBBBBBBBBBBBBBBB</td>
+						<td>C</td>
+					</tr>
+					<tr>
+						<td>BBBB</td>
+						<td>AAA</td>
+						<td>C</td>
+					</tr>
+				</tbody></table>
+			</div>
+
+			<pre class="block code-block all-width">&lt;div class="block example-result example-table"&gt;
+  &lt;table class="auto"&gt;&lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;AA&lt;/td&gt;
+      &lt;td&gt;BBBBBBBBBBBBBBBBBBBBBBB&lt;/td&gt;
+      &lt;td&gt;C&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;BBBB&lt;/td&gt;
+      &lt;td&gt;AAA&lt;/td&gt;
+      &lt;td&gt;C&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;&lt;/table&gt;
+
+  &lt;table class="fixed"&gt;&lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;AA&lt;/td&gt;
+      &lt;td&gt;BBBBBBBBBBBBBBBBBBBBBBB&lt;/td&gt;
+      &lt;td&gt;C&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;BBBB&lt;/td&gt;
+      &lt;td&gt;AAA&lt;/td&gt;
+      &lt;td&gt;C&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;&lt;/table&gt;
+&lt;/div&gt;</pre>
+
+			<pre class="block code-block">.example-table {
+  max-width: 200px;
+}
+.example-table table {
+  width: 100%;
+}
+
+.example-table table.auto {
+  table-layout: auto;
+}
+
+.example-table table.fixed {
+  table-layout: fixed;
+}
+.example-table table.fixed td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}</pre>
+		</div>
+	</div>
+
+	<div class="example-container">
+		<p><span class="attention">Не пытайтесь повторить это дома!</span> Это таблица с <b>table-layout: auto</b>, одна из колонок которой занимает оставшееся место, когда другие ужимаются до максимального контента в них.</p>
+		<p>Основная идея в том, что элементы с <b>position: absolute</b> не занимают места на странице, как мы рассматривали выше. В спецификации <a href="https://www.w3.org/TR/CSS21/visuren.html#propdef-position">CSS2.1</a> действие <b>position: relative</b> на <b>&lt;td&gt;</b> не определено, поэтому мы вкладываем дополнительный <b>&lt;div&gt;</b>.</p>
+		<p>Когда таблица замеряет размеры контента в столбцах, во втором он всегда нулевой.</p>
+		<p>Но остальным столбцам мы сказали быть <b>width: 1px; white-space: nowrap</b>. У auto-таблиц <b>width</b> обозначает минимальную ширину, а не итоговую, а <b>white-space: nowrap</b> запрещает переносить слова в принципе. В итоге измеряется длина самой длинной строки.</p>
+		<p>Т.к. первый и третий столбец вычислились и имеют фиксированные размеры, а таблица по размеру больше, чем они двоём в сумме, оставшееся пространство отходит второму столбцу.</p>
+		<p>Но его контент хоть и выглядит как нулевой по ширине, таковым не является, просто рисуется в <b>position: absolute</b>, где мы уже делаем что нам нужно.</p>
+		<p>В CSS есть одно правило с <b>:after</b>. Как и почему оно работает, честно говоря — я не знаю. Но если не класть эту точку без размера в контейнер, то у него не будет размеров и блок с <b>position: absolute</b> будет сдвинут. Само это правило эквивалентно тому, что мы положим внутрь <b>.td-container</b> <b>inline-block</b> нулевого размера.</p>
+
+		<div class="example-result-container">
+			<div class="block example-result example-table-magic">
+				<table><tbody>
+					<tr>
+						<td class="shrink">AA</td>
+						<td><div class="td-container"><div class="content">BBBBBBBBBBBBBBBBBBBBBBB</div></div></td>
+						<td class="shrink">C</td>
+					</tr>
+					<tr>
+						<td class="shrink">BBBB</td>
+						<td><div class="td-container"><div class="content">AAA</div></div></td>
+						<td class="shrink">C</td>
+					</tr>
+				</tbody></table>
+			</div>
+
+			<pre class="block code-block all-width">&lt;div class="example-table-magic"&gt;
+  &lt;table&gt;&lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td class="shrink"&gt;AA&lt;/td&gt;
+      &lt;td&gt;&lt;div class="td-container"&gt;&lt;div class="content"&gt;BBBBBBBBBBBBBBBBBBBBBBB&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+      &lt;td class="shrink"&gt;C&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td class="shrink"&gt;BBBB&lt;/td&gt;
+      &lt;td&gt;&lt;div class="td-container"&gt;&lt;div class="content"&gt;AAA&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+      &lt;td class="shrink"&gt;C&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;&lt;/table&gt;
+&lt;/div&gt;</pre>
+
+			<pre class="block code-block">.example-table-magic {
+  width: 200px;
+}
+.example-table-magic table {
+  table-layout: auto;
+  width: 100%;
+}
+.example-table-magic table td.shrink {
+  width: 1px;
+  white-space: nowrap;
+}
+.example-table-magic table .td-container {
+  position: relative;
+}
+.example-table-magic table .td-container:after {
+  content: ' ';
+  display: inline-block;
+  width: 0;
+  height: 0;
+}
+.example-table-magic table .td-container > .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}</pre>
+		</div>
+	</div>
+
+	<p>Вот и всё. Осталось только прочитать <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">гайд по flexbox'у</a>. И долго гуглить разные свойства, либо пролистать весь их список и запомнить, какие бывают. И посмотреть на <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform">transform</a> и <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition">transition</a>. И дождаться смерти <b>IE11</b>, чтобы начать использовать <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout">Grid Layout</a>.</p>
+</div>
+
+</body>
+</html>
